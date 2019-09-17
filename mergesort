@@ -1,0 +1,79 @@
+#include <iostream>
+#include <time.h>
+//constexpr auto defaltSize = 10;;
+using namespace std;
+
+class MergeSort {
+
+public:
+	int x = 10;
+	int temp[10];
+
+	void mergesort(int* A1, int p, int q) {
+		int mid = (p + q) / 2;
+		if (p < q) {
+			mergesort(A1, p, mid);
+			mergesort(A1, mid + 1, q);
+			merge(A1, p, mid, q);
+		}
+	}
+
+	void merge(int* A2, int p, int mid, int q) {
+		int start = p;
+		int sort = p;
+
+		int end = q;
+		int midd = mid+1;
+		while (midd<=end && start<=mid) {
+			if (A2[start] <= A2[midd]) {
+				temp[sort] = A2[start];
+				sort++; start++;
+			}
+			else  { //if (A[start] > A[midd])
+				temp[sort] = A2[midd];
+				sort++; midd++;
+			}
+		}
+
+		if (start > mid) {
+			for (sort; sort <= q; sort++,midd++) {
+				temp[sort] = A2[midd];
+			}
+		}
+		else {
+			for (sort; sort <= q; sort++, start++) {
+				temp[sort] = A2[start];
+			}
+		}
+		
+		for (int i = 0; i <= q; i++) {
+			A2[i] = temp[i];
+		}
+	}
+
+};
+int main() {
+	srand(time(NULL));
+	int A[10];
+	for (int i = 0; i < 10; i++) {
+		A[i] = (rand() % 99) +1 ;
+	}
+	for (int i = 0; i < 10; i++) {
+		cout << A[i] <<" ";
+	}
+	cout << endl;
+
+
+	MergeSort St;
+	St.mergesort(A, 0, 9);
+	
+
+
+	for (int i = 0; i < 10; i++) {
+		cout << A[i] << " ";
+	}
+	cout << endl;
+
+
+
+}
